@@ -1,4 +1,5 @@
-app.db
+.vscode
+api-env
 __pycache__
 migrations
 .env

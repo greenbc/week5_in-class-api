@@ -98,7 +98,11 @@ def create_drone(current_user_token):
 @app.route('/drones', methods = ['GET'])
 @token_required
 def get_drones(current_user_token):
-    owner, current_user_token = verify_owner(current_user_token)
+    try:
+        owner, current_user_token = verify_owner(current_user_token)
+    except:
+        bad_res = verify_owner(current_user_token)
+        return bad_res
     drones = Drone.query.filter_by(user_id = owner.user_id).all()
     response =  drones_schema.dump(drones)
     return jsonify(response)
@@ -107,7 +111,11 @@ def get_drones(current_user_token):
 @app.route('/drones/<id>', methods = ['GET'])
 @token_required
 def get_drone(current_user_token, id):
-    owner, current_user_token = verify_owner(current_user_token)
+    try:
+        owner, current_user_token = verify_owner(current_user_token)
+    except:
+        bad_res = verify_owner(current_user_token)
+        return bad_res
     drone = Drone.query.get(id)
     response = drone_schema.dump(drone)
     return jsonify(response)
@@ -116,7 +124,11 @@ def get_drone(current_user_token, id):
 @app.route('/drones/<id>', methods = ['POST', 'PUT'])
 @token_required
 def update_drone(current_user_token, id):
-    owner, current_user_token = verify_owner(current_user_token)
+    try:
+        owner, current_user_token = verify_owner(current_user_token)
+    except:
+        bad_res = verify_owner(current_user_token)
+        return bad_res
     drone = Drone.query.get(id)
 
     drone.name = request.json['name']
@@ -131,7 +143,11 @@ def update_drone(current_user_token, id):
 @app.route('/drones/<id>', methods = ['DELETE'])
 @token_required
 def delete_drone(current_user_token, id):
-    owner, current_user_token = verify_owner(current_user_token)
+    try:
+        owner, current_user_token = verify_owner(current_user_token)
+    except:
+        bad_res = verify_owner(current_user_token)
+        return bad_res
     drone = Drone.query.get(id)
     db.session.delete(drone)
     db.session.commit()
