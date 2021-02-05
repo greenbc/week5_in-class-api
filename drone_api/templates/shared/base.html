@@ -27,8 +27,8 @@
                 <a href="">
                     <li>Donate</li>
                 </a>
-                <a href="">
-                    <li>SpreadThe Word</li>
+                <a href="{{ url_for('profile') }}">
+                    <li>Profile</li>
                 </a>
                 <!--User Auth Check for SignIn/SignUp Nav Buttons-->
                 {% if current_user.is_authenticated %}
